@@ -589,14 +589,8 @@
       const data = await res.json();
 
       if (!res.ok || data.error) {
-        const msg = data.error || 'Unknown error';
-        log('Error: ' + msg, 'err');
-        if (msg.toLowerCase().includes('timeout')) {
-          log('Tip: Render free tier may be cold-starting. Wait 30s and retry.', 'warn');
-        } else if (msg.toLowerCase().includes('connection closed') || msg.toLowerCase().includes('closed')) {
-          log('Tip: WhatsApp rejected the connection. Wait 10s then retry once.', 'warn');
-        }
-        setStatus('error', 'Failed — see log');
+        log('Error: ' + (data.error || 'Unknown'), 'err');
+        setStatus('error', 'Failed — try again');
         $('connect-btn').disabled = false;
         $('phone').disabled = false;
         return;
@@ -638,9 +632,8 @@
           handleConnected(data.phone);
         } else if (['logged_out','disconnected','error'].includes(data.status)) {
           clearInterval(pollTimer);
-          const msg = data.error || data.status;
-          log('Session ended: ' + msg, 'err');
-          setStatus('error', 'Failed — reset and try again');
+          log('Session ended: ' + data.status, 'err');
+          setStatus('error', 'Disconnected — reset and try again');
         }
       } catch (_) {}
     }, 1500);
