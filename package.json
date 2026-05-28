@@ -1,0 +1,19 @@
+{
+  "name": "session-ripper",
+  "version": "2.0.0",
+  "description": "WhatsApp Baileys Session Downloader — Render Hosted",
+  "main": "server.js",
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "@whiskeysockets/baileys": "^6.7.9",
+    "archiver": "^7.0.1",
+    "express": "^4.18.2",
+    "pino": "^9.1.0",
+    "uuid": "^10.0.0"
+  }
+}
